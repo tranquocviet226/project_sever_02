@@ -1,0 +1,19 @@
+{
+  "name": "project_sever_02",
+  "version": "1.0.0",
+  "description": "- Project name: Lovely - Language: Java Script - Framework: NodeJs - Group : VTNPlusD - Leader: Nguyen Ngoc Duy - Member: Tran Quoc Viet - Start date: 09/01/2020 - End date:",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olololoe110399/project_sever_02.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olololoe110399/project_sever_02/issues"
+  },
+  "homepage": "https://github.com/olololoe110399/project_sever_02#readme"
+}
