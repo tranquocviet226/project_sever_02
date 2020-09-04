@@ -1,0 +1,105 @@
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+#
+version: 2
+workflows:
+  version: 2
+  build-and-deploy:
+    jobs:
+      - build
+      - deploy:
+          requires:
+            - build # only run deploy-via-git job if the build job has completed
+
+jobs:
+      # Buil project
+  build:
+    working_directory: ~/repo
+    docker:
+      # CricleCI dùng docker. Ở dưới là mình dùng bản Pre-built có sẵn của CricleCI
+      # Ta có thể dùng image tự tạo
+      # specify the version you desire here
+      - image: circleci/node:8.11.1
+      # Specify service dependencies here if necessary
+      # CircleCI maintains a library of pre-built images
+      # documented at https://circleci.com/docs/2.0/circleci-images/
+    steps:
+      # Pull code về
+      - checkout
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+      # Download và cache dependencies
+      - restore_cache:
+          key: dependency-cache-{{checksum "package-lock.json"}}
+      # Cài node_modules
+      - run:
+          name: install-npm
+          command: npm install
+      # cache dependencies
+      - save_cache:
+          key: dependency-cache-{{checksum "package-lock.json"}}
+          paths:
+            - ./node_modules
+       # Send notification to messenger
+      - run:
+          name: Sending notification
+          when: on_success
+          command: |
+            if [[ true ]];  then
+              curl -X POST -H  "Content-Type: application/json" -d \
+                '{
+                  "recipient":{
+                    "id":"'$PSID_BOSS'"
+                  },
+                  "message":{
+                    "text":"💚 💚 💚 \n Your pull request is successful 🤑 💸  ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Commit/pull request link: https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/commit/'$CIRCLE_SHA1' \n - Build link: https://circleci.com/gh/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/'$CIRCLE_BUILD_NUM' "
+                  }
+                }' "https://graph.facebook.com/v2.6/me/messages?access_token=$PAGE_ACCESS_TOKEN" \
+                
+              curl -X POST -H  "Content-Type: application/json" -d \
+                '{
+                  "recipient":{
+                    "id":"'$PSID_VIET'"
+                  },
+                  "message":{
+                    "text":"💚 💚 💚 \n Your pull request is successful 🤑 💸  ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Commit/pull request link: https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/commit/'$CIRCLE_SHA1' \n - Build link: https://circleci.com/gh/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/'$CIRCLE_BUILD_NUM' "
+                  }
+                }' "https://graph.facebook.com/v2.6/me/messages?access_token=$PAGE_ACCESS_TOKEN"
+            fi
+      - run:
+          name: Sending notification
+          when: on_fail
+          command: |
+            if [[ true ]];  then
+              curl -X POST -H  "Content-Type: application/json" -d \
+                '{
+                  "recipient":{
+                    "id":"'$PSID_BOSS'"
+                  },
+                  "message":{
+                    "text":" ❌ ❌ ❌  \n Your pull request is failed 😨 😨 💔 ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Commit/pull request link: https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/commit/'$CIRCLE_SHA1' \n - Build link: https://circleci.com/gh/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/'$CIRCLE_BUILD_NUM' "
+                  }
+                }' "https://graph.facebook.com/v2.6/me/messages?access_token=$PAGE_ACCESS_TOKEN" \
+
+              curl -X POST -H  "Content-Type: application/json" -d \
+                '{
+                  "recipient":{
+                    "id":"'$PSID_VIET'"
+                  },
+                  "message":{
+                    "text":" ❌ ❌ ❌  \n Your pull request is failed 😨 😨 💔 ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Commit/pull request link: https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/commit/'$CIRCLE_SHA1' \n - Build link: https://circleci.com/gh/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/'$CIRCLE_BUILD_NUM' "
+                  }
+                }' "https://graph.facebook.com/v2.6/me/messages?access_token=$PAGE_ACCESS_TOKEN" 
+            fi
+      # deploy in heroku       
+  deploy:
+    docker:
+      - image: circleci/node:8.11.1
+    steps:
+      - checkout
+      - run:
+          name: Deploy Master to Heroku
+          command: |
+            git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git master -f 
