@@ -54,7 +54,7 @@ jobs:
                     "id":"'$PSID_BOSS'"
                   },
                   "message":{
-                    "text":"💚 💚 💚 \n Your pull request is successful 🤑 💸  ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Commit/pull request link: https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/commit/'$CIRCLE_SHA1' \n - Build link: https://circleci.com/gh/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/'$CIRCLE_BUILD_NUM' "
+                    "text":"💚 💚 💚 \n Tạo PR ok rồi nhé! 🤑 💸  ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Pull request: '$CIRCLE_PULL_REQUEST' \n - CI Detail: '$CIRCLE_BUILD_URL' "
                   }
                 }' "https://graph.facebook.com/v2.6/me/messages?access_token=$PAGE_ACCESS_TOKEN" \
                 
@@ -64,7 +64,7 @@ jobs:
                     "id":"'$PSID_VIET'"
                   },
                   "message":{
-                    "text":"💚 💚 💚 \n Your pull request is successful 🤑 💸  ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Commit/pull request link: https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/commit/'$CIRCLE_SHA1' \n - Build link: https://circleci.com/gh/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/'$CIRCLE_BUILD_NUM' "
+                    "text":"💚 💚 💚 \n Tạo PR ok rồi nhé! 🤑 💸  ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Pull request: '$CIRCLE_PULL_REQUEST' \n - CI Detail: '$CIRCLE_BUILD_URL' "
                   }
                 }' "https://graph.facebook.com/v2.6/me/messages?access_token=$PAGE_ACCESS_TOKEN"
             fi
@@ -79,7 +79,7 @@ jobs:
                     "id":"'$PSID_BOSS'"
                   },
                   "message":{
-                    "text":" ❌ ❌ ❌  \n Your pull request is failed 😨 😨 💔 ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Commit/pull request link: https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/commit/'$CIRCLE_SHA1' \n - Build link: https://circleci.com/gh/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/'$CIRCLE_BUILD_NUM' "
+                    "text":" ❌ ❌ ❌  \n Lỗi rồi! Kiểm tra lại coi! 😨 😨 💔 ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Pull request: '$CIRCLE_PULL_REQUEST' \n - CI Detail: '$CIRCLE_BUILD_URL' "
                   }
                 }' "https://graph.facebook.com/v2.6/me/messages?access_token=$PAGE_ACCESS_TOKEN" \
 
@@ -89,7 +89,7 @@ jobs:
                     "id":"'$PSID_VIET'"
                   },
                   "message":{
-                    "text":" ❌ ❌ ❌  \n Your pull request is failed 😨 😨 💔 ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Commit/pull request link: https://github.com/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/commit/'$CIRCLE_SHA1' \n - Build link: https://circleci.com/gh/'$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME'/'$CIRCLE_BUILD_NUM' "
+                    "text":" ❌ ❌ ❌  \n Lỗi rồi! Kiểm tra lại coi!   😨 😨 💔 ! \n - Repository name: '$CIRCLE_PROJECT_USERNAME'/'$CIRCLE_PROJECT_REPONAME' \n - Author: '$CIRCLE_USERNAME' \n - Branch: '$CIRCLE_BRANCH' \n - Pull request: '$CIRCLE_PULL_REQUEST' \n - CI Detail: '$CIRCLE_BUILD_URL' "
                   }
                 }' "https://graph.facebook.com/v2.6/me/messages?access_token=$PAGE_ACCESS_TOKEN" 
             fi
